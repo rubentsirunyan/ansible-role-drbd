@@ -1,0 +1,15 @@
+resource r0 {
+    protocol C;
+    on {{ drdb_master_hostname }} {
+            device /dev/drbd0;
+            disk {{ drbd_disk }};
+            address {{ drdb_master_address }}:7789;
+            meta-disk internal;
+    }
+    on {{ drdb_slave_hostname }} {
+            device /dev/drbd0;
+            disk {{ drbd_disk }};
+            address {{ drdb_slave_address }}:7789;
+            meta-disk internal;
+    }
+}

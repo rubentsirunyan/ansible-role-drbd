@@ -1,0 +1,32 @@
+---
+- name: install ELRepo 
+  yum_repository:
+    name: ELRepo
+    baseurl: http://elrepo.reloumirrors.net/elrepo/el7/x86_64
+    description: EL Repository
+    gpgkey: https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+  become: true
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+  register: _disable_selinux
+
+- name: Install DRBD
+  yum:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - drbd84-utils
+    - kmod-drbd84
+  become: true
+
+- name: Disable the firewall 
+  service:
+    name: firewalld
+    state: stopped
+    enabled: no
+  become: true
+
+- name: Including the config
+  include_tasks: config.yml

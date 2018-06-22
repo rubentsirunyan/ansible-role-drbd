@@ -1,0 +1,13 @@
+---
+drbd_disks:
+  - device: /dev/drbd0
+    disk: /dev/sdb
+    filesystem: ext3
+    mountpoint: /mnt
+    resource: r0
+    state: present
+drbd_group: test_nodes
+
+drbd_interface: ens18
+
+drbd_network_shared_secret: wXE8MqVa
